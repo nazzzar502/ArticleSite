@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 blog-main">
+
+      <div>
+        <h2><%= @user.name %></h2>
+        <h2><%= @user.lastname %></h2>
+        <hr>
+          <% if @user.image.attached? == true %>
+           <div class='row justify-content-md-center'> <%=image_tag(url_for(@user.logo))%> </div>
+          <%else%>
+           <div class="row justify-content-md-center"> <%=image_tag("Ruby.jpeg") %></div>
+          <%end%>
+        <br>
+        <p>
+        <h3>Login:<%= @user.login %></h3></p>
+        <h3>Email:<%= @user.email %></h3></p>
+        <hr>
+        <%= link_to 'Edit', edit_user_path(@user), :class => 'btn btn-outline-success' %>
+        <%= link_to 'Back', root_path, :class => 'btn btn-outline-danger' %>
+      </div>
+
+    </div>
+  </div>
+</div>

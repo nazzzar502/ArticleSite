@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>My Articles</h1>
+ <%= link_to 'New Article', new_article_path(@articles), :class => 'btn btn-outline-success' %>
+<hr>
+
+<div class="container">
+  <div>
+    <div class="col-md-12 blog-main">
+      <div>
+        <% @articles.each do |article| %>
+          <div>
+            <h2><%= article.title %></h2>
+            <hr>
+            <div class="row">
+              <div class='col'><span class="border"><%= image_tag(url_for(article.thumbnailbig)) %></span></div>
+              <div class='col'><h3> <%= article.decsription %></h3></div>
+            </div>
+            <br>
+            <%= link_to 'Show', article_path(article), :class => 'btn btn-outline-primary' %>
+            <% if session[:user_id] != nil %>
+              <%= link_to 'Edit', edit_article_path(article), :class => 'btn btn-outline-success' %>
+              <%= link_to 'Destroy', article, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-outline-danger' %>
+            <% end %>
+          </div>
+          <hr>
+          <br>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

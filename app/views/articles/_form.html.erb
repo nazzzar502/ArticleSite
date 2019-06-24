@@ -1,0 +1,22 @@
+
+<div class="edit_form" >
+  <%= simple_form_for @article, html: { class: 'form-horizontal' } do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :title %>
+    <%= f.input :decsription, as: :text %>
+    <%= f.input :short_description %>
+    <h3>Parameters</h3>
+      <div id='tasks'>
+        <% @article.parameters.build %>
+        <%= f.simple_fields_for :parameters do |parameter| %>
+          <%= render 'parameter_fields', :f => parameter %>
+        <% end %>
+        <div class='links'>
+          <%= link_to_add_association 'add parameter', f, :parameters, class: "btn-outline-primary" %>
+        </div>
+      </div>
+    <%= f.input :image, as: :file, :label => 'Article photo' %>
+    <%= f.button :submit, class: "btn-outline-primary" %>
+    <%= link_to 'Back', articles_path, :class => 'btn btn-outline-danger'  %>
+  <% end %>
+</div>

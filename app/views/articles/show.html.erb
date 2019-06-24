@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<div class = "container">
+  <div class = "row">
+    <div class = "col-md-12 blog-main">
+
+        <div>
+          <h2><%= @article.title %></h2>
+          <br>
+          <h4>By <%=link_to @owner.login, user_path(@owner) %></h4>
+          <hr>
+          <%if @article.image.attached? == true %>
+            <div class = 'row justify-content-md-center' > <%= image_tag(url_for(@article.thumbnail))%> </div>
+          <%else %>
+            <div class = 'col' > <span class="border"><%= image_tag("Ruby.jpg")%></span></div>
+          <%end%>
+          <br>
+          <p><h3><%= @article.decsription %></h3></p>
+          <hr>
+          <h2>Parameters:</h2>
+          <%@article.parameters.each do |p| %>
+            <ul>
+              <li><h2><%=p.description %></h2></li>
+            </ul>
+          <%end%>
+          <hr>
+          <% if @current_user != nil %>
+            <% if session[:user_id] == @owner_id || @current_user.admin_status == true%>
+              <%= link_to 'Edit', edit_article_path(@article), :class => 'btn btn-outline-success' %>
+              <%= link_to 'Destroy', @article, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-outline-danger' %>
+            <%end%>
+          <% end %>
+          <%= link_to 'Back', articles_path, :class => 'btn btn-outline-danger'  %>
+          <hr>
+          <h2><%= @article.comments.count %> Comments </h2>
+          <%= render @article.comments %>
+          <% if session[:user_id] != nil %>
+            <h3>Add a comment</h3>
+            <%= render 'comments/form' %>
+          <%end%>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+
+

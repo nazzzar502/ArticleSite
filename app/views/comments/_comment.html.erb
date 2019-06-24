@@ -1,0 +1,12 @@
+<p><%=User.find_by(id:[comment.user_id]).login %>:</p>
+<% @current_user = User.find_by(id:[session[:user_id]])%>
+<div class = "form" >
+  <p><%= comment.text %></p>
+  <p><%= time_ago_in_words(comment.created_at) %></p>
+  <% if session[:user_id] != nil %>
+    <%if @current_user.id  == comment.user_id  or @current_user.admin_status == true%>
+     <p><%=link_to 'Delete', [comment.article, comment], method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-outline-danger' %> </p>
+    <%end%>
+  <%end%>
+</div>
+<hr>
